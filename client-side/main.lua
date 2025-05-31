@@ -12,8 +12,8 @@ vRP = Proxy.getInterface("vRP")
 vRPS = Tunnel.getInterface("vRP")
 
 local CommandsSystem = {}
-Tunnel.bindInterface("us_commands", CommandsSystem)
-vSERVER = Tunnel.getInterface("us_commands")
+Tunnel.bindInterface("commands-system", CommandsSystem)
+vSERVER = Tunnel.getInterface("commands-system")
 
 ClientLoaded = true
 LocalPlayer["state"]:set("Punishment", false, true)
@@ -58,7 +58,7 @@ CreateThread(function()
 		Wait(1000)
 	end
 
-	RegisterNetEvent("us_commands:InitSphere", function(mode, presetType)
+	RegisterNetEvent("commands-system:InitSphere", function(mode, presetType)
 		if not SphereActive then
 			SphereActive = true
 			local ped = PlayerPedId()
@@ -81,13 +81,13 @@ CreateThread(function()
 					local players = getClosestPlayers(radius)
 
 					if mode == "SetClothes" then
-						TriggerServerEvent("us_commands:ApplyClothes", players, presetType)
+						TriggerServerEvent("commands-system:ApplyClothes", players, presetType)
 					elseif mode == "RemClothes" then
-						TriggerServerEvent("us_commands:RemClothes", players)
+						TriggerServerEvent("commands-system:RemClothes", players)
 					elseif mode == "SetWeapons" then
-						TriggerServerEvent("us_commands:ApplyWeapons", players, presetType)
+						TriggerServerEvent("commands-system:ApplyWeapons", players, presetType)
 					elseif mode == "RemWeapons" then
-						TriggerServerEvent("us_commands:RemWeapons", players)
+						TriggerServerEvent("commands-system:RemWeapons", players)
 					end
 				end
 
@@ -108,7 +108,7 @@ CreateThread(function()
 		end
 	end)
 
-	RegisterNetEvent("us_commands:InitPunishment", function()
+	RegisterNetEvent("commands-system:InitPunishment", function()
 		LocalPlayer["state"]:set("Punishment", true, true)
 		Notify("Modo punição ativo, siga as regras da próxima vez")
 		
@@ -128,7 +128,7 @@ CreateThread(function()
 		end)
 	end)
 
-	RegisterNetEvent("us_commands:StopPunishment", function()
+	RegisterNetEvent("commands-system:StopPunishment", function()
 		LocalPlayer["state"]:set("Punishment", false, true)
 		Notify("Punishment mode disabled, follow the rules to avoid being punished again")
 	end)
